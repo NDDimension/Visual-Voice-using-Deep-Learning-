@@ -41,9 +41,5 @@ def load_model() -> Sequential:
 
     model.add(Dense(41, kernel_initializer="he_normal", activation="softmax"))
 
-    # ✅ Restore weights using tf.train.Checkpoint
-    checkpoint = tf.train.Checkpoint(model=model)
-    status = checkpoint.restore(checkpoint_path)
-    status.expect_partial()  # suppress optimizer-related warnings
 
     return model
