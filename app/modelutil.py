@@ -15,6 +15,9 @@ from tensorflow.keras.layers import (
     Flatten,
 )
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+checkpoint_path = os.path.join(BASE_DIR, "..", "models", "checkpoint")
+
 
 def load_model() -> Sequential:
     model = Sequential()
@@ -45,6 +48,7 @@ def load_model() -> Sequential:
 
     model.add(Dense(41, kernel_initializer="he_normal", activation="softmax"))
 
-    model.load_weights(os.path.join("..", "models", "checkpoint"))
+
+    model.load_weights(checkpoint_path)
 
     return model
