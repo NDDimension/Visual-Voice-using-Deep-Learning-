@@ -1,4 +1,5 @@
 import os
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import (
     Conv3D,
@@ -8,16 +9,12 @@ from tensorflow.keras.layers import (
     Bidirectional,
     MaxPool3D,
     Activation,
-    Reshape,
-    SpatialDropout3D,
-    BatchNormalization,
     TimeDistributed,
     Flatten,
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 checkpoint_path = os.path.join(BASE_DIR, "..", "models", "checkpoint")
-
 
 def load_model() -> Sequential:
     model = Sequential()
@@ -36,19 +33,17 @@ def load_model() -> Sequential:
 
     model.add(TimeDistributed(Flatten()))
 
-    model.add(
-        Bidirectional(LSTM(128, kernel_initializer="Orthogonal", return_sequences=True))
-    )
+    model.add(Bidirectional(LSTM(128, kernel_initializer="Orthogonal", return_sequences=True)))
     model.add(Dropout(0.5))
 
-    model.add(
-        Bidirectional(LSTM(128, kernel_initializer="Orthogonal", return_sequences=True))
-    )
+    model.add(Bidirectional(LSTM(128, kernel_initializer="Orthogonal", return_sequences=True)))
     model.add(Dropout(0.5))
 
     model.add(Dense(41, kernel_initializer="he_normal", activation="softmax"))
 
-
-    model.load_weights(checkpoint_path)
+    # ✅ Restore weights using tf.train.Checkpoint
+    checkpoint = tf.train.Checkpoint(model=model)
+    status = checkpoint.restore(checkpoint_path)
+    status.expect_partial()  # suppress optimizer-related warnings
 
     return model
