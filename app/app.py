@@ -4,6 +4,7 @@ import imageio
 import tensorflow as tf
 from utils import load_data, num_to_char
 from modelutil import load_model
+from pathlib import Path
 
 # Add this near the top (after imports)
 BASE_DIR = Path(__file__).resolve().parent.parent  # Gets project root
