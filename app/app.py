@@ -114,7 +114,7 @@ with st.container():
         unsafe_allow_html=True,
     )
 
-    video_folder = os.path.join("data", "s1")
+    video_folder = os.path.join("..","data", "s1")
     options = os.listdir(video_folder)
     selected_video = st.selectbox(
         "🎥 Select a video sample to analyze",
