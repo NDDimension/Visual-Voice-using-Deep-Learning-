@@ -15,11 +15,7 @@ def load_model() -> Sequential:
     # Define checkpoint paths (try multiple possible extensions/names)
     checkpoint_path = None
     possible_names = [
-        "checkpoint",
-        "checkpoint.ckpt",
-        "checkpoint.index",
-        "model.ckpt",
-        "model.h5"
+        "checkpoint"
     ]
     
     # Check for existing checkpoint files
