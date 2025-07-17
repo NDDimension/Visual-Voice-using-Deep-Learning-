@@ -5,6 +5,10 @@ import tensorflow as tf
 from utils import load_data, num_to_char
 from modelutil import load_model
 
+# Add this near the top (after imports)
+BASE_DIR = Path(__file__).resolve().parent.parent  # Gets project root
+DATA_DIR = BASE_DIR / "data"
+
 # Page config
 st.set_page_config(layout="wide", page_title="LipBuddy", page_icon="🧠")
 
@@ -114,8 +118,8 @@ with st.container():
         unsafe_allow_html=True,
     )
 
-    video_folder = os.path.join("..","data", "s1")
-    options = os.listdir(video_folder)
+    video_folder = DATA_DIR / "s1"
+    options = [f.name for f in video_folder.glob("*.mpg")]  # List only .mpg files
     selected_video = st.selectbox(
         "🎥 Select a video sample to analyze",
         options,
@@ -125,8 +129,9 @@ with st.container():
     st.markdown("</div>", unsafe_allow_html=True)
 
 
+# Then update the file path usage:
 if selected_video:
-    file_path = os.path.join(video_folder, selected_video)
+    file_path = str(video_folder / selected_video)  # Convert to string for compatibility
 
     # Load data and process prediction once
     with st.spinner("Loading video and running model..."):
