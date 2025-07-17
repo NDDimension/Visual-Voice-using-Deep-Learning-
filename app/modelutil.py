@@ -16,10 +16,9 @@ from tensorflow.keras.layers import (
     Flatten,
 )
 
-def load_model() -> Sequential:
-    # Get the base directory (assuming this file is in the same structure as app.py)
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    MODEL_DIR = BASE_DIR / "models"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_DIR = BASE_DIR / "models"
+
 
 def load_model() -> Sequential:
     model = Sequential()
