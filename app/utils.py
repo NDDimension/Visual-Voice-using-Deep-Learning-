@@ -41,15 +41,21 @@ def load_alignments(path: str) -> List[str]:
 
 
 def load_data(path: str):
-    path = bytes.decode(path.numpy())
-    file_name = path.split("/")[-1].split(".")[0]
-    # File name splitting for windows
-    file_name = path.split("\\")[-1].split(".")[0]
+    path = bytes.decode(path.numpy())  # Convert from tensor to string
+    print(f"Debug: Received path: {path}")
+
+    # Get only the filename without any folder
+    file_name = os.path.basename(path).split(".")[0]
+    print(f"Debug: Extracted file_name: {file_name}")
+
     video_path = os.path.join("..", "data", "s1", f"{file_name}.mpg")
-    alignment_path = os.path.join(
-        "..", "data", "alignments", "s1", f"{file_name}.align"
-    )
+    alignment_path = os.path.join("..", "data", "alignments", "s1", f"{file_name}.align")
+
+    print(f"Debug: video_path = {video_path}")
+    print(f"Debug: alignment_path = {alignment_path}")
+
     frames = load_video(video_path)
     alignments = load_alignments(alignment_path)
 
     return frames, alignments
+
