@@ -1,7 +1,7 @@
 # 👄 Visible Voice – Lip Reading AI
 
 > ***See what’s being said — even in silence.***  
-> 🔗 https://your-emotion-detector-app.streamlit.app/ 
+
 
 
 ### ⚠️ NOTE
