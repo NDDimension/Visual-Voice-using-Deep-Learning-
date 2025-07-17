@@ -1,4 +1,3 @@
-from pathlib import Path
 import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import (
@@ -15,9 +14,6 @@ from tensorflow.keras.layers import (
     TimeDistributed,
     Flatten,
 )
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_DIR = BASE_DIR / "models"
 
 
 def load_model() -> Sequential:
@@ -49,7 +45,6 @@ def load_model() -> Sequential:
 
     model.add(Dense(41, kernel_initializer="he_normal", activation="softmax"))
 
-    model.load_weights(MODEL_DIR / "checkpoint")
+    model.load_weights(os.path.join("..", "models", "checkpoint"))
 
     return model
-
